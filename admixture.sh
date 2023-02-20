@@ -1,8 +1,8 @@
 # make chromosome map for the vcf
-grep -v "#" calls50.vcf | cut -f 1 | uniq | awk '{print $0"\t"$0}' > chrom_map.txt
+grep -v "#" calls10.vcf | cut -f 1 | uniq | awk '{print $0"\t"$0}' > chrom_map.txt
 
 # run vcftools for the combined vcf
-vcftools --vcf calls50.vcf  --plink --chrom-map chrom_map.txt --out total 
+vcftools --vcf calls10.vcf  --plink --chrom-map chrom_map.txt --out total 
 
 # convert  with plink
 plink --file total --allow-extra-chr --recode 12 --out total2
@@ -14,7 +14,7 @@ for K in 1 2 3 4 5 6 7; do admixture --cv total200.ped $K  | tee log2_${K}.out; 
 grep -h CV log2_*.out
 
 
-# 50kbp
+# 10kbp
 # CV error (K=1): 0.39686
 # CV error (K=2): 0.39858
 # CV error (K=3): 0.42274
